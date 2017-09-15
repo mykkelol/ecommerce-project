@@ -1,20 +1,21 @@
 var express     = require("express"),
-app             = express();
+app             = express(),
+bodyParser      = require("body-parser"), // extract entire body of HTTP request through req.body
+mongoose        = require("mongoose"), // ODM and schemas
+methodOverride  = require("method-override");
 
-app.use(express.static("public"));
-app.set("view engine", "ejs");
+// requiring routes
+    var indexRoutes = require("./routes/index");
 
-// INDEX ROUTE
-    app.get(["/", "/home"], function(req, res){
-        res.render('index')
-    })
+// setting up files
+    mongoose.Promise = global.Promise;
+    app.use(bodyParser.urlencoded({extended: true}));
+    app.use(express.static(__dirname + "/public"));
+    app.use(methodOverride("_method"));
+    app.set('view engine', 'ejs');
 
-
-
-
-
-
+app.use(indexRoutes);
 
 app.listen(process.env.PORT, process.env.IP, function(){
-   console.log('Shopping Cart Server: CONNECTED'); 
+   console.log("SHOPPING CART SERVER CONNECTED");
 });
