@@ -2,13 +2,6 @@ var express     = require("express"),
     passport    = require("passport"),
     //User        = require("../models/user"),
     router      = express.Router();
-
-router.use(express.static("public"));
-
-// root route
-    router.get(["/", "/home"], function(req, res){
-        res.render("index");
-    });
     
 // register form
     router.get("/register", function(req, res){
